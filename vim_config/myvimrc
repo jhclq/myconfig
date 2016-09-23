@@ -1,0 +1,98 @@
+"去掉vi一致性模式(避免一些bug)
+set nocompatible
+
+"在insert模式下用退格键删除
+set bs=2
+
+"根据文件类型执行indent目录下(自动缩进)脚本,ftplugin目录下脚本
+filetype plugin indent on
+
+"语法高亮
+syntax on
+
+"代码折叠
+"set foldmethod=indent
+
+"用空格代替Tab和缩进
+set expandtab
+
+"缩进的空格数
+set shiftwidth=4
+
+"Tab的宽度
+set tabstop=4
+
+"显示行号
+set number
+
+"使用黑色背景
+set bg=dark
+
+"检索时忽略大小写
+set ignorecase
+
+"高亮搜索结果
+set hlsearch
+
+"平滑滚屏
+imap <C-U> <ESC><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>a
+imap <C-D> <ESC><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>a
+
+"按F2关闭高亮
+nmap <F2> : nohlsearch <CR>
+
+"按c快速注释一行
+map c I// <Esc> j
+
+"文件在Vim之外修改过,自动重新读入
+set autoread
+
+"
+"以下是使用Vundle(vim插件管理工具)的方式
+"
+"开始使用Vundle的必须配置
+set nocompatible
+filetype off
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+"使用Vundle来管理Vundle
+Plugin 'VundleVim/Vundle.vim' 
+
+""代码补全(tab)
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+
+"文件浏览
+Plugin 'scrooloose/nerdtree'
+
+"标签
+Plugin 'majutsushi/tagbar'
+let tagbar_width=25
+map <F8> : Tagbar<CR>
+
+"PowerLine插件 状态栏增强展示
+Plugin 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+let g:airline_left_sep = '»'
+let g:airline_right_sep = '«'
+let g:airline_symbols.linenr = '¶'
+set t_Co=256
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+nmap [b : bp<CR>
+nmap ]b : bn<CR>
+
+""markdown插件
+"Plugin 'godlygeek/tabular'
+"Plugin 'plasticboy/vim-markdown'
+
+"Vundle配置必须 开启插件
+call vundle#end()
+filetype plugin indent on

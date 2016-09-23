@@ -1,0 +1,46 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+
+;; evil插件，vim模式
+(require 'evil)
+(evil-mode 1)
+
+;; org模式配置
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+;; 去除欢迎界面
+(setq inhibit-startup-message t)
+
+;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+(tool-bar-mode -1)
+
+;; 关闭文件滑动控件
+(scroll-bar-mode -1)
+
+;; 显示行号
+(global-linum-mode 1)
+(put 'set-goal-column 'disabled nil)
+
+;; 取消备份原文件（filename～）
+(setq make-backup-files nil)
+
+;; auctex配置
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+(setq Tex-auto-save t)
+(setq Tex-parse-self t)
+(setq-default Tex-master nil)
+
+;;  latex配置
+(setq Tex-output-view-style (quote (("^pdf$" "." "evince &o %(outpage)"))))
+
+(add-hook 'LaTex-mode-hook
+(lambda()
+(add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'
+%t" Tex-run-Tex nil t))
+(setq Tex-command-default "XeLaTex")))

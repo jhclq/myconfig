@@ -3,8 +3,8 @@
 (package-initialize)
 
 ;; evil插件，vim模式
-(require 'evil)
-(evil-mode 1)
+;;(require 'evil)
+;;(evil-mode 1)
 
 ;; org模式配置
 (require 'org)
@@ -12,6 +12,15 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+
+;; 解析shell中的颜色信息
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+
+;; Ctrl-c ← 还原之前的窗口配置
+(when (fboundp 'winner-mode)
+  (winner-mode)
+  (windmove-default-keybindings))
 
 ;; 去除欢迎界面
 (setq inhibit-startup-message t)
@@ -38,9 +47,7 @@
 
 ;;  latex配置
 (setq Tex-output-view-style (quote (("^pdf$" "." "evince &o %(outpage)"))))
-
 (add-hook 'LaTex-mode-hook
-(lambda()
-(add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'
-%t" Tex-run-Tex nil t))
-(setq Tex-command-default "XeLaTex")))
+	  (lambda()
+	    (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'i%t" Tex-run-Tex nil t))
+	    (setq Tex-command-default "XeLaTex")))

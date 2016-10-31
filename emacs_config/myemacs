@@ -1,17 +1,31 @@
+;; emacs软件包配置
+;; 添加软件包仓库
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
+
+;; company配置
+;; 自动开启company-mode
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; evil插件，vim模式
 ;;(require 'evil)
 ;;(evil-mode 1)
 
-;; org模式配置
+;; org-mode配置
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+;; 设置org-mode使用xelatex
+(setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+                               "xelatex -interaction nonstopmode %f"))
+
+;; 设置代码风格
+(setq c-default-style "linux"
+      c-basic-offset 4)
 
 ;; 解析shell中的颜色信息
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
@@ -35,8 +49,18 @@
 (global-linum-mode 1)
 (put 'set-goal-column 'disabled nil)
 
-;; 取消备份原文件（filename～）
-(setq make-backup-files nil)
+;; 取消备份原文件(filename~)
+;(setq make-backup-files nil)
+
+;; 自动备份设置
+(setq
+ backup-by-copying t
+ backup-directory-alist
+ '(("." . "~/.saves"))
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t)
 
 ;; auctex配置
 (load "auctex.el" nil t t)

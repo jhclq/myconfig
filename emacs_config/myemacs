@@ -4,6 +4,12 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
+;; undo-tree配置
+;; C-x u进入undo-tree-v-mode
+;; p,n上下移动 b,f左右切换 t显示时间戳 选定后q退出
+(require 'undo-tree)
+(global-undo-tree-mode)
+
 ;; company配置
 ;; 自动开启company-mode
 (require 'company)

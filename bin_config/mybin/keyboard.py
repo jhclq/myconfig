@@ -31,9 +31,9 @@ devices_list = re.findall(pattern, my_input_devices)
 # 开启和关闭键位映射
 # Xmodmap.conf 是映射的配置文件
 if state == 1:
-    os.system("xmodmap ./Xmodmap.conf")
+    os.system("xmodmap ~/bin/Xmodmap.conf")
 else:
-    os.system("xmodmap ./Xmodmap.conf")
+    os.system("xmodmap ~/bin/Xmodmap.conf")
     
 for my_id in devices_list:
     os.system("xinput set-prop " + str(my_id[1]) + " 'Device Enabled' " + str(state))
